@@ -7,33 +7,31 @@
 Contents
 * [Problem](#problem)
 * [Possible solutions](#possible-solutions)
-* [Build custom kernel](#build-custom-kernel)
+* [Build a custom kernel](#build-a-custom-kernel)
 * [Build custom installation media](#build-custom-installation-media)
 * [Licensing](#licensing)
 * [Contacts](#contacts)
 
 ## Problem
-Some new notebooks, like my [HP ENVY 15 Laptop](https://www.hp.com/us-en/shop/mdp/laptops/envy-15-204072--1) have problem with linux installation/work.
-The reason is that manufacturers use Intel Rapid Storage Technology with NVME disks and, accordingly, in the UEFI of these devices [there is no possibility
-switch these drives to AHCI mode](https://h30434.www3.hp.com/t5/Notebook-Boot-and-Lockup/envy-15-2020-ahci-mode/td-p/7703443>).
-Another example with [DELL laptop](https://www.dell.com/community/Linux-General/Inspiron-7490-BIOS-How-to-turn-off-intel-RAID-on-and-swith-disk/td-p/7388147).
+Some new laptops, like [HP ENVY 15 Laptop](https://www.hp.com/us-en/shop/mdp/laptops/envy-15-204072--1) or [DELL Inspiron 7490](https://www.dell.com/community/Linux-General/Inspiron-7490-BIOS-How-to-turn-off-intel-RAID-on-and-swith-disk/td-p/7388147), have problem with linux installation/work.
+The reason is the manufacturers use Intel Rapid Storage Technology with NVME disks and, accordingly, in the UEFI of these devices [there is no possibility to switch these drives to AHCI mode](https://h30434.www3.hp.com/t5/Notebook-Boot-and-Lockup/envy-15-2020-ahci-mode/td-p/7703443>).
 
-Modern version of linux kernel does not provide support for this technology in such a combination and only shows a warning to the user to change mode of the disks.
+The modern version of the Linux kernel does not provide support for this technology in such a combination and only shows a warning to the user to change the mode of the disks.
 There are two sets of patches to make these disks work, from [Dan Williams](https://marc.info/?l=linux-ide&m=147709610621480&w=2), and another one from [Daniel Drake](https://lkml.org/lkml/2019/6/20/27) based on previous, but they have not been merged into the mainline kernel.
 
-Bad thing - both of them are not applicable for latest kernel version.
+Bad thing - both of them are not applicable for the latest kernel version.
 
 Good thing - Daniel Drake supports his patch in [Endless OS](https://endlessos.com/) custom kernel.
 
 ## Possible solutions
 * Install and use [Endless OS](https://endlessos.com/).
-* Build Fedora custom live/installation media with custom kernel with applied remapped NVME device support patch.
+* Build Fedora custom live/installation media with a custom kernel with applied remapped NVME device support patch.
 
-[//]: # (TODO: add link to ISO)
-* Download custom live/installation media built by random guy from teh internets and use it at own risk.
+[//]: # (TODO: add a link to ISO)
+* Download custom live/installation media built by a random guy from teh internets and use it at your own risk.
 
-## Build custom kernel
-Another one machine with Fedora and configured sudo is required.
+## Build a custom kernel
+Another machine with Fedora and configured sudo is required.
 
 1. Install build tools:
     ```sh
@@ -59,7 +57,7 @@ Another one machine with Fedora and configured sudo is required.
    ```sh
    $ sudo dnf builddep kernel.spec
    ```
-7. Get patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d) name.
+7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d) name.
     ```sh
     $ wget -c https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d.patch -O patch-intel-remapped-nvme-device-support.patch
     ```
@@ -84,7 +82,7 @@ Another one machine with Fedora and configured sudo is required.
     ```
 
 Or just use `build-kernel.sh` script from this repository.
-Fresh built packages can be found in `fedora-custom-kernel/kernel/x86_64` directory.
+Freshly built packages can be found in `fedora-custom-kernel/kernel/x86_64` directory.
 
 # Build custom installation media
 [//]: # (TODO: document it!!1)
@@ -92,7 +90,7 @@ Fresh built packages can be found in `fedora-custom-kernel/kernel/x86_64` direct
     ```sh
     $ sudo dnf install lorax fedora-kickstarts pykickstart createrepo_c
     ```
-2. Enter to directory with fresh build kernel packages:
+2. Enter to the directory with fresh build kernel packages:
     ```sh
     $ cd fedora-custom-kernel/kernel/x86_64
     ```
@@ -140,6 +138,4 @@ fedora-intel-remapped-nvme-device-support uses the Creative Commons Attribution 
 Please check the LICENSE file for more details.
 
 ## Contacts
-**Original URL**: https://github.com/vint21h/fedora-intel-remapped-nvme-device-support/
-
 **Author**: Alexei Andrushievich <vint21h@vint21h.pp.ua>
