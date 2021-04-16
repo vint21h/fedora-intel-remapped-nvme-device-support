@@ -15,6 +15,7 @@ Contents
 * [Contacts](#contacts)
 
 ## Problem
+
 Some new laptops, like [HP ENVY 15 Laptop](https://www.hp.com/us-en/shop/mdp/laptops/envy-15-204072--1) have problem with linux installation/work.
 The reason is the manufacturers use Intel Rapid Storage Technology with NVME disks and, accordingly, in the UEFI of these devices [there is no possibility to switch these drives to AHCI mode](https://h30434.www3.hp.com/t5/Notebook-Boot-and-Lockup/envy-15-2020-ahci-mode/td-p/7703443), [DELL Inspiron 7490](https://www.dell.com/community/Linux-General/Inspiron-7490-BIOS-How-to-turn-off-intel-RAID-on-and-swith-disk/td-p/7388147) have that problem too.
 
@@ -26,11 +27,13 @@ Bad thing - both of them are not applicable for the latest kernel version.
 Good thing - Daniel Drake supports his patch in [Endless OS](https://endlessos.com/) custom kernel.
 
 ## Possible solutions
+
 * Install and use [Endless OS](https://endlessos.com/).
 * Use similar instruction for [Debian/Ubuntu](https://askubuntu.com/questions/1204648/install-ubuntu-on-dell-inspiron-14-7490/1232818#1232818).
 * Build Fedora custom live/installation media with a custom kernel with applied remapped NVME device support patch.
 
 ## Some prerequirements
+
 Another machine with Fedora, installed `screen` and configured `sudo` is required.
 
 Also, ~30G of free disk space and 1.5+ hours of free time is needed.
@@ -98,6 +101,7 @@ Or just use [build-kernel.sh](build-kernel.sh) script from this repository.
 Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](fedora-custom-kernel/kernel/x86_64) directory.
 
 # Build custom installation media
+
 1. Install build tools:
     ```sh
     $ sudo dnf install lorax fedora-kickstarts pykickstart createrepo_c
@@ -156,8 +160,10 @@ Congratulations you have [fedora-custom-kernel/image/live/images.boot.iso](fedor
 Now you can write it to disk or USB flash.
 
 ## Licensing
+
 fedora-intel-remapped-nvme-device-support uses the Creative Commons Attribution Share Alike 4.0 International license.
 Please check the LICENSE file for more details.
 
 ## Contacts
+
 **Author**: Alexei Andrushievich <vint21h@vint21h.pp.ua>
