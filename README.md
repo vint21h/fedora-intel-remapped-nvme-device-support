@@ -110,11 +110,11 @@ Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](
     ```sh
     $ cd fedora-custom-kernel/kernel/x86_64
     ```
-3. Create repo metadata:
+3. Create repository metadata:
     ```sh
     $ createrepo .
     ```
-4. Serve local repo with custom kernel packages:
+4. Serve local repository with custom kernel packages:
     ```sh
     $ screen -d -m python -m http.server 8080
     ```
