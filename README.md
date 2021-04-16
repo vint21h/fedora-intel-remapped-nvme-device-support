@@ -16,7 +16,7 @@ Contents
 
 ## Problem
 Some new laptops, like [HP ENVY 15 Laptop](https://www.hp.com/us-en/shop/mdp/laptops/envy-15-204072--1) have problem with linux installation/work.
-The reason is the manufacturers use Intel Rapid Storage Technology with NVME disks and, accordingly, in the UEFI of these devices [there is no possibility to switch these drives to AHCI mode](https://h30434.www3.hp.com/t5/Notebook-Boot-and-Lockup/envy-15-2020-ahci-mode/td-p/7703443>), [DELL Inspiron 7490](https://www.dell.com/community/Linux-General/Inspiron-7490-BIOS-How-to-turn-off-intel-RAID-on-and-swith-disk/td-p/7388147) have that problem too.
+The reason is the manufacturers use Intel Rapid Storage Technology with NVME disks and, accordingly, in the UEFI of these devices [there is no possibility to switch these drives to AHCI mode](https://h30434.www3.hp.com/t5/Notebook-Boot-and-Lockup/envy-15-2020-ahci-mode/td-p/7703443), [DELL Inspiron 7490](https://www.dell.com/community/Linux-General/Inspiron-7490-BIOS-How-to-turn-off-intel-RAID-on-and-swith-disk/td-p/7388147) have that problem too.
 
 The modern version of the Linux kernel does not provide support for this technology in such a combination and only shows a warning to the user to change the mode of the disks.
 There are two sets of patches to make these disks work, from [Dan Williams](https://marc.info/?l=linux-ide&m=147709610621480&w=2), and another one from [Daniel Drake](https://lkml.org/lkml/2019/6/20/27) based on previous, but they have not been merged into the mainline kernel.
@@ -27,6 +27,7 @@ Good thing - Daniel Drake supports his patch in [Endless OS](https://endlessos.c
 
 ## Possible solutions
 * Install and use [Endless OS](https://endlessos.com/).
+* Use similar instruction for [Debian/Ubuntu](https://askubuntu.com/questions/1204648/install-ubuntu-on-dell-inspiron-14-7490/1232818#1232818).
 * Build Fedora custom live/installation media with a custom kernel with applied remapped NVME device support patch.
 
 ## Some prerequirements
