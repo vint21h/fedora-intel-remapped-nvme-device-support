@@ -6,8 +6,8 @@
 
 set -eaux pipefail;
 
-mkdir sudo dnf install fedpkg fedora-packager rpmdevtools ncurses-devel pesign grubby \
-  && fedora-custom-kernel \
+sudo dnf install fedpkg fedora-packager rpmdevtools ncurses-devel pesign grubby \
+  && mkdir fedora-custom-kernel \
   && cd fedora-custom-kernel \
   && fedpkg clone -a kernel \
   && cd kernel \

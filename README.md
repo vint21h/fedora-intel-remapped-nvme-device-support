@@ -29,17 +29,17 @@ Good thing - Daniel Drake supports his patch in [Endless OS](https://endlessos.c
 * Install and use [Endless OS](https://endlessos.com/).
 * Build Fedora custom live/installation media with a custom kernel with applied remapped NVME device support patch.
 
-[//]: # (TODO: add a link to ISO)
-* Download custom live/installation media built by a random guy from teh internets and use it at your own risk.
-
 ## Some prerequirements
-Another machine with Fedora and configured sudo is required.
+Another machine with Fedora, installed `screen` and configured `sudo` is required.
+
+Also, ~30G of free disk space and 1.5+ hours of free time is needed.
 
 Setup environment variables:
 ```sh
 export FEDORA_VERSION=33
 export FEDORA_ARCH=x86_64
 export PATCH_URL=https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d.patch
+export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 ```
 
 ## Build a custom kernel
@@ -70,7 +70,7 @@ export PATCH_URL=https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d324
    ```
 7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d) name.
     ```sh
-    $ wget -c https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d.patch -O patch-intel-remapped-nvme-device-support.patch
+    $ wget -c "${PATCH_URL}" -O patch-intel-remapped-nvme-device-support.patch
     ```
 8. Update kernel package spec file (kernel.spec):
     1. Replace `# define buildid .local` by `%define buildid .local`
@@ -92,11 +92,11 @@ export PATCH_URL=https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d324
     $ fedpkg local
     ```
 
-Or just use `build-kernel.sh` script from this repository.
-Freshly built packages can be found in `fedora-custom-kernel/kernel/x86_64` directory.
+Or just use [build-kernel.sh](build-kernel.sh) script from this repository.
+
+Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](fedora-custom-kernel/kernel/x86_64) directory.
 
 # Build custom installation media
-[//]: # (TODO: document it!!1)
 1. Install build tools:
     ```sh
     $ sudo dnf install lorax fedora-kickstarts pykickstart createrepo_c
@@ -111,7 +111,7 @@ Freshly built packages can be found in `fedora-custom-kernel/kernel/x86_64` dire
     ```
 4. Serve local repo with custom kernel packages:
     ```sh
-    $ python -m http.server 8080 &
+    $ screen -d -m python -m http.server 8080
     ```
 5. Switch to main directory:
     ```sh
@@ -139,7 +139,7 @@ Freshly built packages can be found in `fedora-custom-kernel/kernel/x86_64` dire
     $ sed -i 's#repo --name="rawhide" --mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?repo=rawhide\&arch=$basearch#\# repo --name="rawhide" --mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?repo=rawhide\&arch=$basearch#g' flat-fedora-live-workstation.ks
     $ sed -i "/^# repo --name=\"rawhide\" --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=rawhide\&arch=\$basearch/a repo --name='fedora' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=fedora-\$releasever\&arch=\$basearch" flat-fedora-live-workstation.ks
     $ sed -i "/^repo --name='fedora' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=fedora-\$releasever\&arch=\$basearch/a repo --name='updates' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=updates-released-f\$releasever\&arch=\$basearch" flat-fedora-live-workstation.ks
-    $ HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}') sed -i "/^repo --name='updates' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=updates-released-f\$releasever\&arch=\$basearch/a repo --name='fedora-custom-kernel' --cost=1 --baseurl=http:\/\/${HOST_IP}:8080/" flat-fedora-live-workstation.ks
+    $ sed -i "/^repo --name='updates' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=updates-released-f\$releasever\&arch=\$basearch/a repo --name='fedora-custom-kernel' --cost=1 --baseurl=http:\/\/${HOST_IP}:8080/" flat-fedora-live-workstation.ks
     $ sed -i 's#part / --fstype="ext4" --size=5120#part / --fstype="ext4" --size=10240#g' flat-fedora-live-workstation.ks
     $ sed -i 's#part / --size=6656#part / --size=13312#g' flat-fedora-live-workstation.ks
     ```
@@ -149,7 +149,9 @@ Freshly built packages can be found in `fedora-custom-kernel/kernel/x86_64` dire
     ```
 
 Or just use `build-image.sh` script from this repository.
-Congratulations you have `fedora-custom-kernel/image/live/images.boot.iso`.
+
+Congratulations you have [fedora-custom-kernel/image/live/images.boot.iso](fedora-custom-kernel/image/live/images.boot.iso).
+
 Now you can write it to disk or USB flash.
 
 ## Licensing
