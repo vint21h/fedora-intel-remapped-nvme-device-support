@@ -148,7 +148,7 @@ Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](
     $ sudo -E sh -c 'setenforce 0 && livemedia-creator --make-iso --iso=result/images/boot.iso --ks flat-fedora-live-workstation.ks --releasever="${FEDORA_VERSION}" --macboot --resultdir=./live/ --live-rootfs-size 10 --iso-name Fedora-"${FEDORA_VERSION}" && setenforce 1'
     ```
 
-Or just use `build-image.sh` script from this repository.
+Or just use [build-image.sh](build-image.sh) script from this repository.
 
 Congratulations you have [fedora-custom-kernel/image/live/images.boot.iso](fedora-custom-kernel/image/live/images.boot.iso).
 
