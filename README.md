@@ -49,31 +49,31 @@ export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 ## Build a custom kernel
 
 1. Install build tools:
-    ```sh
+    ```console
     $ sudo dnf install fedpkg fedora-packager rpmdevtools ncurses-devel pesign grubby
     ```
 2. Create working directory and enter to it:
-    ```sh
+    ```console
     $ mkdir fedora-custom-kernel
     ```
 3. Get kernel package sources:
-    ```sh
+    ```console
     $ fedpkg clone -a kernel
     ```
 4. Enter to the package source directory:
-    ```sh
+    ```console
     $ cd kernel
     ```
 5. Switch to desired fedora kernel branch:
-    ```sh
+    ```console
     $ git checkout -b local origin/f"${FEDORA_VERSION}"
     ```
 6. Install kernel build requirements:
-   ```sh
+   ```console
    $ sudo dnf builddep kernel.spec
    ```
 7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d) name.
-    ```sh
+    ```console
     $ wget -c "${PATCH_URL}" -O patch-intel-remapped-nvme-device-support.patch
     ```
 8. Update kernel package spec file (kernel.spec):
@@ -82,17 +82,17 @@ export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
     3. Add `ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch` line after `ApplyOptionalPatch patch-%{stableversion}-redhat.patch`
 
     Or using command line:
-    ```sh
+    ```console
     $ sed -i 's/# define buildid .local/%define buildid .local/g' kernel.spec
     $ sed -i '/^Patch1: patch-%{stableversion}-redhat.patch/a Patch2: patch-intel-remapped-nvme-device-support.patch' kernel.spec
     $ sed -i '/^ApplyOptionalPatch patch-%{stableversion}-redhat.patch/a ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch' kernel.spec
     ```
 9. Build source package (optional):
-    ```sh
+    ```console
     $ fedpkg srpm
     ```
 10. Build kernel packages:
-    ```sh
+    ```console
     $ fedpkg local
     ```
 
@@ -103,43 +103,43 @@ Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](
 # Build custom installation media
 
 1. Install build tools:
-    ```sh
+    ```console
     $ sudo dnf install lorax fedora-kickstarts pykickstart createrepo_c
     ```
 2. Enter to the directory with freshly built kernel packages:
-    ```sh
+    ```console
     $ cd fedora-custom-kernel/kernel/x86_64
     ```
 3. Create repository metadata:
-    ```sh
+    ```console
     $ createrepo .
     ```
 4. Serve local repository with custom kernel packages:
-    ```sh
+    ```console
     $ screen -d -m python -m http.server 8080
     ```
 5. Switch to main directory:
-    ```sh
+    ```console
     $ cd ../..
     ```
 6. Create image build directory:
-    ```sh
+    ```console
     $ mkdir image
     ```
 7. Enter image build directory:
-    ```sh
+    ```console
     $ cd image
     ```
 8. Build boot image:
-    ```sh
+    ```console
     $ sudo sh -c 'setenforce 0 && lorax -p Fedora\ "${FEDORA_VERSION}" -v "${FEDORA_VERSION}" -r "${FEDORA_VERSION}" -s http://localhost:8080/ -s https://dl.fedoraproject.org/pub/fedora/linux/releases/"${FEDORA_VERSION}"/Everything/"${FEDORA_ARCH}"/os/ -s https://dl.fedoraproject.org/pub/fedora/linux/updates/"${FEDORA_VERSION}"/Everything/"${FEDORA_ARCH}"/ ./result/ && setenforce 1'
     ```
 9. Create flat kickstart file:
-    ```sh
+    ```console
     $ ksflatten --config /usr/share/spin-kickstarts/fedora-live-workstation.ks -o flat-fedora-live-workstation.ks --version F"${FEDORA_VERSION}"
     ```
 10. Update kickstart file:
-    ```sh
+    ```console
     $ sed -i 's#url --mirrorlist="https://mirrors.fedoraproject.org/mirrorlist?repo=rawhide\&arch=$basearch"#url --mirrorlist="https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-$releasever\&arch=$basearch"#g' flat-fedora-live-workstation.ks
     $ sed -i 's#repo --name="rawhide" --mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?repo=rawhide\&arch=$basearch#\# repo --name="rawhide" --mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?repo=rawhide\&arch=$basearch#g' flat-fedora-live-workstation.ks
     $ sed -i "/^# repo --name=\"rawhide\" --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=rawhide\&arch=\$basearch/a repo --name='fedora' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=fedora-\$releasever\&arch=\$basearch" flat-fedora-live-workstation.ks
@@ -149,7 +149,7 @@ Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](
     $ sed -i 's#part / --size=6656#part / --size=13312#g' flat-fedora-live-workstation.ks
     ```
 11. Build live/installation media image:
-    ```sh
+    ```console
     $ sudo -E sh -c 'setenforce 0 && livemedia-creator --make-iso --iso=result/images/boot.iso --ks flat-fedora-live-workstation.ks --releasever="${FEDORA_VERSION}" --macboot --resultdir=./live/ --live-rootfs-size 10 --iso-name Fedora-"${FEDORA_VERSION}" && setenforce 1'
     ```
 
@@ -167,3 +167,5 @@ Please check the LICENSE file for more details.
 ## Contacts
 
 **Author**: Alexei Andrushievich <vint21h@vint21h.pp.ua>
+
+For complete authors list see AUTHORS file.
