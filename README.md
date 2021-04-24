@@ -46,6 +46,8 @@ export PATCH_URL="https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d32
 export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 ```
 
+Or just use [set-environment.sh](set-environment.sh) script from this repository.
+
 ## Build a custom kernel
 
 1. Install build tools:
