@@ -39,7 +39,7 @@ Another machine with Fedora, installed `screen` and configured `sudo` is require
 Also, ~30G of free disk space and 1.5+ hours of free time is needed.
 
 Setup environment variables:
-```sh
+```console
 export FEDORA_VERSION="33"
 export FEDORA_ARCH="x86_64"
 export PATCH_URL="https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d.patch"
@@ -157,9 +157,9 @@ Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](
 
 Or just use [build-image.sh](build-image.sh) script from this repository.
 
-Congratulations you have [fedora-custom-kernel/image/live/images.boot.iso](fedora-custom-kernel/image/live/images.boot.iso).
+Congratulations you have [fedora-custom-kernel/image/live/images/boot.iso](fedora-custom-kernel/image/live/images/boot.iso).
 
-Now you can write it to disk or USB flash.
+Now you can write it to DVD or USB flash drive nad install it.
 
 ## Licensing
 
