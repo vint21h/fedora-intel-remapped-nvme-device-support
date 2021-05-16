@@ -40,10 +40,10 @@ Also, ~30G of free disk space and 1.5+ hours of free time is needed.
 
 Setup environment variables:
 ```console
-export FEDORA_VERSION="33"
-export FEDORA_ARCH="x86_64"
-export PATCH_URL="https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d.patch"
-export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+$ export FEDORA_VERSION="33"
+$ export FEDORA_ARCH="x86_64"
+$ export PATCH_URL="https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d.patch"
+$ export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 ```
 
 Or just source [set-environment.sh](set-environment.sh) script from this repository.
