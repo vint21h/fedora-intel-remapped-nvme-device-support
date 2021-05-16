@@ -4,7 +4,7 @@
 # set-environment.sh
 
 
-set -eaux pipefail; \
+set -aux pipefail; \
 
 FEDORA_VERSION="33"; \
 FEDORA_ARCH="x86_64" ; \
