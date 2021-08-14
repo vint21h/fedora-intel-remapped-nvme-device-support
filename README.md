@@ -42,7 +42,7 @@ Setup environment variables:
 ```console
 $ export FEDORA_VERSION="34"
 $ export FEDORA_ARCH="x86_64"
-$ export PATCH_URL="https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d.patch"
+$ export PATCH_URL="https://github.com/endlessm/linux/commit/0922fb63cba0e2bdd95ca2f232afdf3729c3739e.patch"
 $ export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 ```
 
@@ -74,7 +74,7 @@ Or just source [set-environment.sh](set-environment.sh) script from this reposit
    ```console
    $ sudo dnf builddep kernel.spec
    ```
-7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/085cc1148ff1e9bcf7d3245a53b240d6e90fb90d) name.
+7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/0922fb63cba0e2bdd95ca2f232afdf3729c3739e) name.
     ```console
     $ wget -c "${PATCH_URL}" -O patch-intel-remapped-nvme-device-support.patch
     ```
@@ -86,8 +86,8 @@ Or just source [set-environment.sh](set-environment.sh) script from this reposit
     Or using command line:
     ```console
     $ sed -i 's/# define buildid .local/%define buildid .local/g' kernel.spec
-    $ sed -i '/^Patch1: patch-%{stableversion}-redhat.patch/a Patch2: patch-intel-remapped-nvme-device-support.patch' kernel.spec
-    $ sed -i '/^ApplyOptionalPatch patch-%{stableversion}-redhat.patch/a ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch' kernel.spec
+    $ sed -i '/^Patch2: usb-renesas-xhci-fix-handling-of-unknown-rom-state.patch/a Patch3: patch-intel-remapped-nvme-device-support.patch' kernel.spec
+    $ sed -i '/^ApplyOptionalPatch usb-renesas-xhci-fix-handling-of-unknown-rom-state.patch/a ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch' kernel.spec
     ```
 9. Build source package (optional):
     ```console
