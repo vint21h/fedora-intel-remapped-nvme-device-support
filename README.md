@@ -86,8 +86,8 @@ Or just source [set-environment.sh](set-environment.sh) script from this reposit
     Or using command line:
     ```console
     $ sed -i 's/# define buildid .local/%define buildid .local/g' kernel.spec
-    $ sed -i '/^Patch2: usb-renesas-xhci-fix-handling-of-unknown-rom-state.patch/a Patch3: patch-intel-remapped-nvme-device-support.patch' kernel.spec
-    $ sed -i '/^ApplyOptionalPatch usb-renesas-xhci-fix-handling-of-unknown-rom-state.patch/a ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch' kernel.spec
+    $ sed -i '/^Patch1: patch-%{stableversion}-redhat.patch/a Patch2: patch-intel-remapped-nvme-device-support.patch' kernel.spec
+    $ sed -i '/^ApplyOptionalPatch patch-%{stableversion}-redhat.patch/a ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch' kernel.spec
     ```
 9. Build source package (optional):
     ```console

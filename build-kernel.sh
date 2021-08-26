@@ -15,7 +15,7 @@ git checkout -b local origin/f"${FEDORA_VERSION}"; \
 sudo dnf builddep kernel.spec; \
 wget -c "${PATCH_URL}" -O patch-intel-remapped-nvme-device-support.patch; \
 sed -i 's/# define buildid .local/%define buildid .local/g' kernel.spec; \
-sed -i '/^Patch2: usb-renesas-xhci-fix-handling-of-unknown-rom-state.patch/a Patch3: patch-intel-remapped-nvme-device-support.patch' kernel.spec; \
-sed -i '/^ApplyOptionalPatch usb-renesas-xhci-fix-handling-of-unknown-rom-state.patch/a ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch' kernel.spec; \
+sed -i '/^Patch1: patch-%{stableversion}-redhat.patch/a Patch2: patch-intel-remapped-nvme-device-support.patch' kernel.spec; \
+sed -i '/^ApplyOptionalPatch patch-%{stableversion}-redhat.patch/a ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch' kernel.spec; \
 fedpkg srpm; \
 fedpkg local
