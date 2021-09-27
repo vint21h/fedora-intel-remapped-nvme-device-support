@@ -42,7 +42,7 @@ Setup environment variables:
 ```console
 $ export FEDORA_VERSION="34"
 $ export FEDORA_ARCH="x86_64"
-$ export PATCH_URL="https://github.com/endlessm/linux/commit/0922fb63cba0e2bdd95ca2f232afdf3729c3739e.patch"
+$ export PATCH_URL="https://github.com/endlessm/linux/commit/9e1ef9e62c174ba14cb01ff1e894a6a100a8eaf3.patch"
 $ export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 ```
 
