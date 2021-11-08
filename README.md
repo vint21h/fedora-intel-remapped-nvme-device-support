@@ -40,9 +40,9 @@ Also, ~30G of free disk space and 1.5+ hours of free time is needed.
 
 Setup environment variables:
 ```console
-$ export FEDORA_VERSION="34"
+$ export FEDORA_VERSION="35"
 $ export FEDORA_ARCH="x86_64"
-$ export PATCH_URL="https://github.com/endlessm/linux/commit/9e1ef9e62c174ba14cb01ff1e894a6a100a8eaf3.patch"
+$ export PATCH_URL="https://github.com/endlessm/linux/commit/a7c44cdc49c405482f52effa7c874574ccde92af.patch"
 $ export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 ```
 
@@ -74,20 +74,20 @@ Or just source [set-environment.sh](set-environment.sh) script from this reposit
    ```console
    $ sudo dnf builddep kernel.spec
    ```
-7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/0922fb63cba0e2bdd95ca2f232afdf3729c3739e) name.
+7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/a7c44cdc49c405482f52effa7c874574ccde92af) name.
     ```console
     $ wget -c "${PATCH_URL}" -O patch-intel-remapped-nvme-device-support.patch
     ```
 8. Update kernel package spec file (kernel.spec):
     1. Replace `# define buildid .local` by `%define buildid .local`
-    2. Add `Patch2: patch-intel-remapped-nvme-device-support.patch` line after `Patch1: patch-%{stableversion}-redhat.patch`
-    3. Add `ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch` line after `ApplyOptionalPatch patch-%{stableversion}-redhat.patch`
+    2. Add `Patch2: patch-intel-remapped-nvme-device-support.patch` line after `Patch1: patch-%{patchversion}-redhat.patch`
+    3. Add `ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch` line after `ApplyOptionalPatch patch-%{patchversion}-redhat.patch`
 
     Or using command line:
     ```console
     $ sed -i 's/# define buildid .local/%define buildid .local/g' kernel.spec
-    $ sed -i '/^Patch1: patch-%{stableversion}-redhat.patch/a Patch2: patch-intel-remapped-nvme-device-support.patch' kernel.spec
-    $ sed -i '/^ApplyOptionalPatch patch-%{stableversion}-redhat.patch/a ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch' kernel.spec
+    $ sed -i '/^Patch1: patch-%{patchversion}-redhat.patch/a Patch2: patch-intel-remapped-nvme-device-support.patch' kernel.spec
+    $ sed -i '/^ApplyOptionalPatch patch-%{patchversion}-redhat.patch/a ApplyOptionalPatch patch-intel-remapped-nvme-device-support.patch' kernel.spec
     ```
 9. Build source package (optional):
     ```console
