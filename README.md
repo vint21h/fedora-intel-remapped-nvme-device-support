@@ -159,7 +159,7 @@ Or just use [build-image.sh](build-image.sh) script from this repository.
 
 Congratulations you have [fedora-custom-kernel/image/live/images/boot.iso](fedora-custom-kernel/image/live/images/boot.iso).
 
-Now you can write it to DVD or USB flash drive nad install it.
+Now you can write it to DVD or USB flash drive and install it.
 
 ## Licensing
 
