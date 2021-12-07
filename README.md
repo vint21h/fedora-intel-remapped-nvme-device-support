@@ -147,8 +147,7 @@ Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](
     $ sed -i "/^# repo --name=\"rawhide\" --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=rawhide\&arch=\$basearch/a repo --name='fedora' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=fedora-\$releasever\&arch=\$basearch" flat-fedora-live-workstation.ks
     $ sed -i "/^repo --name='fedora' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=fedora-\$releasever\&arch=\$basearch/a repo --name='updates' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=updates-released-f\$releasever\&arch=\$basearch" flat-fedora-live-workstation.ks
     $ sed -i "/^repo --name='updates' --mirrorlist=https:\/\/mirrors.fedoraproject.org\/mirrorlist?repo=updates-released-f\$releasever\&arch=\$basearch/a repo --name='fedora-custom-kernel' --cost=1 --baseurl=http:\/\/${HOST_IP}:8080/" flat-fedora-live-workstation.ks
-    $ sed -i 's#part / --fstype="ext4" --size=5120#part / --fstype="ext4" --size=10240#g' flat-fedora-live-workstation.ks
-    $ sed -i 's#part / --size=6656#part / --size=13312#g' flat-fedora-live-workstation.ks
+    $ sed -i 's#part / --size=7680#part / --fstype="ext4" --size=10240#g' flat-fedora-live-workstation.ks
     ```
 11. Build live/installation media image:
     ```console
