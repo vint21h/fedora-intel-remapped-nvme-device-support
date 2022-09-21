@@ -42,7 +42,7 @@ Setup environment variables:
 ```console
 $ export FEDORA_VERSION="35"
 $ export FEDORA_ARCH="x86_64"
-$ export PATCH_URL="https://github.com/endlessm/linux/commit/a7c44cdc49c405482f52effa7c874574ccde92af.patch"
+$ export PATCH_URL="https://github.com/endlessm/linux/commit/70812177ce4709c20f4ca4977c15a6681680ab83.patch"
 $ export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 ```
 
@@ -74,7 +74,7 @@ Or just source [set-environment.sh](set-environment.sh) script from this reposit
    ```console
    $ sudo dnf builddep kernel.spec
    ```
-7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/a7c44cdc49c405482f52effa7c874574ccde92af) name.
+7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/70812177ce4709c20f4ca4977c15a6681680ab83) name.
     ```console
     $ wget -c "${PATCH_URL}" -O patch-intel-remapped-nvme-device-support.patch
     ```
