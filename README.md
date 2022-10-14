@@ -40,7 +40,7 @@ Also, ~30G of free disk space and 1.5+ hours of free time is needed.
 
 Setup environment variables:
 ```console
-$ export FEDORA_VERSION="35"
+$ export FEDORA_VERSION="36"
 $ export FEDORA_ARCH="x86_64"
 $ export PATCH_URL="https://github.com/endlessm/linux/commit/70812177ce4709c20f4ca4977c15a6681680ab83.patch"
 $ export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')

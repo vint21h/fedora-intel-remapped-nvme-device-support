@@ -7,7 +7,7 @@
 set -aux pipefail; \
 
 # shellcheck disable=SC2034
-FEDORA_VERSION="35"; \
+FEDORA_VERSION="36"; \
 # shellcheck disable=SC2034
 FEDORA_ARCH="x86_64"; \
 # shellcheck disable=SC2034
