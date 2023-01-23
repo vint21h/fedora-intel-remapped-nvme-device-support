@@ -1,6 +1,3 @@
-# fedora-intel-remapped-nvme-device-support
-# Makefile
-
 .ONESHELL:
 PHONY: shellcheck build-kernel build-image help
 

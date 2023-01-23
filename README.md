@@ -1,7 +1,3 @@
-[//]: # (fedora-intel-remapped-nvme-device-support)
-[//]: # (README.md)
-
-
 # Fedora Intel remapped NVME device support
 
 *or how to install Fedora to laptops with Intel remapped NVME devices without possibility switch the mode to AHCI*
@@ -34,19 +30,22 @@ Good thing - Daniel Drake supports his patch in [Endless OS](https://endlessos.c
 
 ## Some prerequirements
 
-Another machine with Fedora, installed `screen` and configured `sudo` is required.
+Another machine with Fedora, installed and configured `sudo` is required.
 
 Also, ~30G of free disk space and 1.5+ hours of free time is needed.
 
 Setup environment variables:
 ```console
-$ export FEDORA_VERSION="36"
+$ export FEDORA_VERSION="37"
 $ export FEDORA_ARCH="x86_64"
-$ export PATCH_URL="https://github.com/endlessm/linux/commit/70812177ce4709c20f4ca4977c15a6681680ab83.patch"
+$ export PATCH_URL="https://github.com/endlessm/linux/commit/a2e548aaac239c9c3e79d61f5386856efaa98c4c.patch"
 $ export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 ```
 
 Or just source [set-environment.sh](set-environment.sh) script from this repository.
+```console
+$ source set-environment.sh
+```
 
 ## Build a custom kernel
 
@@ -74,7 +73,7 @@ Or just source [set-environment.sh](set-environment.sh) script from this reposit
    ```console
    $ sudo dnf builddep kernel.spec
    ```
-7. Get a patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/70812177ce4709c20f4ca4977c15a6681680ab83) name.
+7. Get the latest patch from [Endless OS kernel repository](https://github.com/endlessm/linux/), it can be found by searching commit with [PCI: Add Intel remapped NVMe device support](https://github.com/endlessm/linux/commit/a2e548aaac239c9c3e79d61f5386856efaa98c4c) name.
     ```console
     $ wget -c "${PATCH_URL}" -O patch-intel-remapped-nvme-device-support.patch
     ```
@@ -99,6 +98,9 @@ Or just source [set-environment.sh](set-environment.sh) script from this reposit
     ```
 
 Or just use [build-kernel.sh](build-kernel.sh) script from this repository.
+```console
+$ ./build-kernel.sh
+```
 
 Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](fedora-custom-kernel/kernel/x86_64) directory.
 
@@ -106,7 +108,7 @@ Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](
 
 1. Install build tools:
     ```console
-    $ sudo dnf install lorax fedora-kickstarts pykickstart createrepo_c
+    $ sudo dnf install lorax fedora-kickstarts pykickstart createrepo_c screen
     ```
 2. Enter to the directory with freshly built kernel packages:
     ```console
@@ -155,10 +157,13 @@ Freshly built packages can be found in the [fedora-custom-kernel/kernel/x86_64](
     ```
 
 Or just use [build-image.sh](build-image.sh) script from this repository.
+```console
+$ ./build-image.sh
+```
 
 Congratulations you have [fedora-custom-kernel/image/live/images/boot.iso](fedora-custom-kernel/image/live/images/boot.iso).
 
-Now you can write it to DVD or USB flash drive and install it.
+Now you can write it to DVD or USB flash drive using [Fedora Media Writer](https://getfedora.org/en/workstation/download/) and install it.
 
 ## Licensing
 
@@ -167,6 +172,6 @@ Please check the LICENSE file for more details.
 
 ## Contacts
 
-**Author**: Alexei Andrushievich <vint21h@vint21h.pp.ua>
+**Author**: Oleksii Andrushevych <vint21h@vint21h.pp.ua>
 
-For complete authors list see AUTHORS file.
+For contributors list see CONTRIBUTORS file.

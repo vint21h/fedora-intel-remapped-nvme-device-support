@@ -1,9 +1,5 @@
 #!/usr/bin/env sh
 
-# fedora-intel-remapped-nvme-device-support
-# build-kernel.sh
-
-
 set -eaux pipefail; \
 
 sudo dnf install fedpkg fedora-packager rpmdevtools ncurses-devel pesign grubby ;\

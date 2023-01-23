@@ -1,15 +1,11 @@
 #!/usr/bin/env sh
 
-# fedora-intel-remapped-nvme-device-support
-# build-image.sh
-
-
 set -eaux pipefail; \
 
 HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'); \
 export HOST_IP; \
 
-sudo dnf install qemu lorax fedora-kickstarts pykickstart createrepo_c; \
+sudo dnf install qemu lorax fedora-kickstarts pykickstart createrepo_c screen ; \
 cd fedora-custom-kernel/kernel/"${FEDORA_ARCH}"; \
 createrepo .; \
 screen -d -m python -m http.server 8080; \
