@@ -1,23 +1,18 @@
 .ONESHELL:
 PHONY: build-kernel build-image install help
 
-
 build-kernel:
 	./build-kernel.sh;\
 
-
 build-image:
 	./build-image.sh;\
-
 
 install:
 	pipenv install;\
 	pipenv install --dev;\
 
-
 check:
 	pre-commit run --all-files;\
-
 
 help:
 	@echo "    help:"
