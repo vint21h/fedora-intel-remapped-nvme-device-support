@@ -4,12 +4,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-dotenv-linter = "==0.4.0"
-pre-commit-hooks = "==4.4.0"
-pre-commit = "==2.21.0"
-pymarkdownlnt = "==0.9.8"
+dotenv-linter = "==0.5.0"
+pre-commit-hooks = "==4.6.0"
+pre-commit = "==3.7.0"
+pymarkdownlnt = "==0.9.18"
 
 [packages]
 
 [requires]
-python_version = "3.11"
+python_version = "3.12"

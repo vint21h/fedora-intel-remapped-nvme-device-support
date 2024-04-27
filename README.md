@@ -29,22 +29,22 @@ Good thing - Daniel Drake supports his patch in [Endless OS](https://endlessos.c
 * Use similar instruction for [Debian/Ubuntu](https://askubuntu.com/questions/1204648/install-ubuntu-on-dell-inspiron-14-7490/1232818#1232818).
 * Build Fedora custom live/installation media with a custom kernel with applied remapped NVME device support patch.
 
-## Some prerequirements
+## Some pre-requirements
 
 Another machine with Fedora, installed and configured `sudo` is required.
 
-Also, ~30G of free disk space and 1.5+ hours of free time is needed.
+Also, ~40G of free disk space and 2+ hours of free time is needed.
 
 Setup environment variables:
 
 ```console
-export FEDORA_VERSION="37"
-export FEDORA_ARCH="x86_64"
-export PATCH_URL="https://github.com/endlessm/linux/commit/a2e548aaac239c9c3e79d61f5386856efaa98c4c.patch"
-export HOST_IP=$(ip -4 addr show virbr0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+export FEDORA_VERSION="40"; \
+export FEDORA_ARCH="x86_64"; \
+export PATCH_URL="https://github.com/endlessm/linux/commit/1559f18a1b3122df5200c739963c52e21b108a9e.patch"; \
+export FEDORA_KICKSTARTS_REPO_URL="https://pagure.io/fedora-kickstarts.git"
 ```
 
-Or just source [set-environment.sh](set-environment.sh) script from this repository.
+Or just source [set-environment.sh](setup-environment.sh) script from this repository.
 
 ```console
 source set-environment.sh

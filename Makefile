@@ -1,11 +1,6 @@
 .ONESHELL:
-PHONY: build-kernel build-image install help
-
-build-kernel:
-	./build-kernel.sh;\
-
-build-image:
-	./build-image.sh;\
+default: help
+PHONY: install help
 
 install:
 	pipenv install;\
@@ -17,10 +12,6 @@ check:
 help:
 	@echo "    help:"
 	@echo "        Show this help."
-	@echo "    build-kernel:"
-	@echo "        Build kernel RPM/SRPM packages."
-	@echo "    build-image:"
-	@echo "        Build installation media."
 	@echo "    install:"
 	@echo "        Install requirements."
 	@echo "    check:"
