@@ -1,5 +1,1 @@
 - update README
-- add and use environment variables for:
-  - kernel patch name
-  - kickstarts dir path
-  - flatten kickstart file name and path

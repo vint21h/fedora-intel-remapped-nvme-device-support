@@ -27,3 +27,4 @@ fedora-custom-kernel/*
 Pipfile.lock
 .direnv/
 .env
+result/*
