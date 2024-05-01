@@ -2,6 +2,8 @@
 
 set -eaux pipefail;
 
+echo "Building image...";
+
 # shellcheck source=/dev/null
 . "${PWD}/configure.sh";  # configure if necessary
 
@@ -34,5 +36,8 @@ sed -i '/@x86-baremetal-tools/d' "${FEDORA_KICKSTART_FILE_PATH}";  # removing us
   sudo -E sh -c 'livemedia-creator --make-iso --iso="${IMAGE_BUILD_DIR_PATH}/result/images/boot.iso" --ks "${FEDORA_KICKSTART_FILE_PATH}" --releasever="${FEDORA_VERSION}" --macboot --resultdir="${IMAGE_BUILD_DIR_PATH}/live" --live-rootfs-size 10 --iso-name Fedora-"${FEDORA_VERSION}"';  # building image
 )
 
-# shellcheck source=/dev/null
-. "${PWD}/clean-up.sh";  # cleaning up
+# mark kernel as built
+IMAGE_BUILT="1";  # indicates that image was built
+export IMAGE_BUILT;
+
+echo "Image built successfully."

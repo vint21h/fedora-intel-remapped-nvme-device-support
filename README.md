@@ -33,7 +33,7 @@ Good thing - Daniel Drake supports his patch in [Endless OS](https://endlessos.c
 
 Another machine with Fedora, installed and configured `sudo` is required.
 
-Also, ~40G of free disk space and 2+ hours of free time is needed.
+Also, ~40G of free disk space and ~3+ hours of free time is needed.
 
 Setup environment variables:
 
